@@ -18,12 +18,17 @@ public class PostController {
     }
 
     @PostMapping
-    public Post createPost(@RequestBody PostDto postDto){
-        return postService.createPost(postDto);
+    public Post createPost(
+            @RequestBody String content,
+            @RequestHeader("X-USER-EMAIL") String email,
+            @RequestHeader("X-USER-ROLE") String role,
+            @RequestHeader("X-COLLEGE-CODE") String collegeCode
+    ){
+        return postService.createPost(content, email, role, collegeCode);
     }
 
     @GetMapping
-    public List<Post> getAllPost(String collegeCode){
+    public List<Post> getAllPost(@RequestHeader("X-COLLEGE-CODE") String collegeCode){
         return postService.getAllPost(collegeCode);
     }
 }

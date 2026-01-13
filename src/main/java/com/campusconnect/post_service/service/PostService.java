@@ -17,12 +17,12 @@ public class PostService {
         this.postRepository = postRepository;
     }
 
-    public Post createPost(PostDto postDto){
+    public Post createPost(String content, String email, String role, String collegeCode){
         Post post = Post.builder()
-                .content(postDto.getContent())
-                .authorEmail(postDto.getAuthorEmail())
-                .role(postDto.getRole())
-                .collegeCode(postDto.getCollegeCode())
+                .content(content)
+                .authorEmail(email)
+                .role(role)
+                .collegeCode(collegeCode)
                 .createdAt(LocalDateTime.now())
                 .build();
 
