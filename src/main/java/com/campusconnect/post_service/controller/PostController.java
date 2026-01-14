@@ -1,6 +1,5 @@
 package com.campusconnect.post_service.controller;
 
-import com.campusconnect.post_service.dto.PostDto;
 import com.campusconnect.post_service.model.Post;
 import com.campusconnect.post_service.service.PostService;
 import org.springframework.web.bind.annotation.*;
@@ -29,6 +28,6 @@ public class PostController {
 
     @GetMapping
     public List<Post> getAllPost(@RequestHeader("X-COLLEGE-CODE") String collegeCode){
-        return postService.getAllPost(collegeCode);
+        return postService.getApprovedPosts(collegeCode);
     }
 }

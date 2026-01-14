@@ -28,5 +28,7 @@ public class Post {
 
     private String collegeCode;
 
+    private String status;
+
     private LocalDateTime createdAt;
 }

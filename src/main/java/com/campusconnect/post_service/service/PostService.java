@@ -1,6 +1,5 @@
 package com.campusconnect.post_service.service;
 
-import com.campusconnect.post_service.dto.PostDto;
 import com.campusconnect.post_service.model.Post;
 import com.campusconnect.post_service.repository.PostRepository;
 import org.springframework.stereotype.Service;
@@ -23,10 +22,31 @@ public class PostService {
                 .authorEmail(email)
                 .role(role)
                 .collegeCode(collegeCode)
+                .status("PENDING")
                 .createdAt(LocalDateTime.now())
                 .build();
 
         return postRepository.save(post);
+    }
+
+    public List<Post> getApprovedPosts(String collegeCode){
+        return postRepository.findByCollegeCodeAndStatus(collegeCode, "APPROVED");
+    }
+
+    public List<Post> getPendingPosts(String collegeCode){
+        return postRepository.findByCollegeCodeAndStatus(collegeCode, "PENDING");
+    }
+
+    public void approvePost(Long postId){
+        Post post = postRepository.findById(postId)
+                .orElseThrow(() -> new RuntimeException("Post not found"));
+
+        post.setStatus("APPROVED");
+        postRepository.save(post);
+    }
+
+    public void deletePost(Long postId){
+        postRepository.deleteById(postId);
     }
 
     public List<Post> getAllPost(String collegeCode){

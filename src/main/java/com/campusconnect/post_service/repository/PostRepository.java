@@ -10,4 +10,6 @@ import java.util.List;
 public interface PostRepository extends JpaRepository<Post, Long> {
 
     List<Post> findAllByCollegeCodeOrderByCreatedAtDesc(String collegeCode);
+
+    List<Post> findByCollegeCodeAndStatus(String collegeCode, String status);
 }
