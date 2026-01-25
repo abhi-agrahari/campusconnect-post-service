@@ -2,12 +2,14 @@ package com.campusconnect.post_service.controller;
 
 import com.campusconnect.post_service.model.Post;
 import com.campusconnect.post_service.service.PostService;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @RestController
-@RequestMapping("/posts")
+@RequestMapping("/post")
 public class PostController {
 
     private final PostService postService;
@@ -17,17 +19,19 @@ public class PostController {
     }
 
     @PostMapping
-    public Post createPost(
+    public ResponseEntity<Post> createPost(
             @RequestBody String content,
             @RequestHeader("X-USER-EMAIL") String email,
             @RequestHeader("X-USER-ROLE") String role,
             @RequestHeader("X-COLLEGE-CODE") String collegeCode
     ){
-        return postService.createPost(content, email, role, collegeCode);
+        Post post = postService.createPost(content, email, role, collegeCode);
+        return new ResponseEntity<>(post, HttpStatus.CREATED);
     }
 
     @GetMapping
-    public List<Post> getAllPost(@RequestHeader("X-COLLEGE-CODE") String collegeCode){
-        return postService.getApprovedPosts(collegeCode);
+    public ResponseEntity<List<Post>> getAllPost(@RequestHeader("X-COLLEGE-CODE") String collegeCode){
+        List<Post> posts = postService.getApprovedPosts(collegeCode);
+        return new ResponseEntity<>(posts, HttpStatus.OK);
     }
 }
