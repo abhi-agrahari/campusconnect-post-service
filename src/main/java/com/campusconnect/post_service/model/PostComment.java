@@ -25,7 +25,11 @@ public class PostComment {
 
     private String userEmail;
 
+    private Long userId;
+
+    private String userName;
+
     private String content;
 
-    private LocalDateTime createAt;
+    private LocalDateTime createdAt;
 }

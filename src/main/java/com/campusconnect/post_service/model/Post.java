@@ -1,9 +1,6 @@
 package com.campusconnect.post_service.model;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import lombok.*;
 
 import java.time.LocalDateTime;
@@ -24,11 +21,28 @@ public class Post {
 
     private String authorEmail;
 
+    private Long authorId;
+
+    private String authorName;
+
+    private String name;
+
     private String role;
 
     private String collegeCode;
 
     private String status;
 
+    private Integer reactionCount = 0;
+
     private LocalDateTime createdAt;
+
+    @Transient
+    private long likesCount;
+
+    @Transient
+    private long commentsCount;
+
+    @Transient
+    private boolean likedByUser;
 }
